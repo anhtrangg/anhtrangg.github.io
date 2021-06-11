@@ -1,1 +1,523 @@
-!function(e,t){if("object"==typeof exports&&"object"==typeof module)module.exports=t();else if("function"==typeof define&&define.amd)define([],t);else{var n=t();for(var o in n)("object"==typeof exports?exports:e)[o]=n[o]}}(window,(function(){return function(e){var t={};function n(o){if(t[o])return t[o].exports;var i=t[o]={i:o,l:!1,exports:{}};return e[o].call(i.exports,i,i.exports,n),i.l=!0,i.exports}return n.m=e,n.c=t,n.d=function(e,t,o){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:o})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var o=Object.create(null);if(n.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var i in e)n.d(o,i,function(t){return e[t]}.bind(null,i));return o},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=0)}([function(e,t){function n(e,t){for(var n=0;n<t.length;n++){var o=t[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}function o(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}var i={realTimePvp:"REAL_TIME_PVP",asyncPvp:"ASYNC_PVP",singlePlayer:"SINGLE_PLAYER"},a="SINGLE_PLAYER",r="Error: game not started yet!",s=function(){function e(){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e),o(this,"version","1.0.1"),o(this,"versionCode",0),o(this,"matchType",i.singlePlayer),o(this,"gameType",a),o(this,"currentUser",{}),o(this,"otherPlayers",[]),o(this,"currentScore",0),o(this,"finalScore",0),o(this,"gameStarted",!1),o(this,"webViewBridge",null),o(this,"state",{}),o(this,"isSDKReady",!1),o(this,"callbacks",{}),o(this,"chatEmojis",[]),o(this,"loadingExpiredAt",0),o(this,"matchInfo",{}),o(this,"aesKey",void 0),o(this,"appLogo","splash.png");var t=1,n=0;this.version.split(".").reverse().forEach((function(e){n+=t*e,t*=100})),this.versionCode=n,console.log("SDK constructor run: "+this.version+" : "+this.versionCode+" : "+n),this.isWebView()?this.addWebViewListeners():this.addParentFrameListeners()}var t,s,l;return t=e,(s=[{key:"addParentFrameListeners",value:function(){var e=this;window.addEventListener("message",(function(t){var n,o,i=t.data.eventName||null,a=t.data.data||null;switch(e.triggerSingleOpponentJoined=function(){e.otherPlayers.forEach((function(t){e.onOpponentJoined(t,!0)}))},i){case"match_info":console.log("Received match info",a),e.matchType=a.matchType,e.gameType=a.gameType,e.currentUser=a.current_user,e.otherPlayers=null!==(n=a.other_players)&&void 0!==n?n:[],e.state=null!==(o=a.state)&&void 0!==o?o:{},e.chatEmojis=a.chatEmojis,e.loadingExpiredAt=a.loadingExpiredAt,e.aesKey=a.aesKey,null!=a.appLogo&&(e.appLogo=a.appLogo),console.log("##=> override applogo: "+e.appLogo);var r=document.getElementById("splash-image");r.src=e.appLogo,r.style.opacity=255,e.matchInfo=a,e.isSDKReady=!0,e.onReady(),e.triggerSingleOpponentJoined();break;case"current_user":console.log("Received current user",a),e.currentUser=a,e.isSDKReady||(e.isSDKReady=!0,e.onReady());break;case"opponent_left":console.log("Opponent left",a),e.otherPlayers.forEach((function(t){a.name===t.id&&delete e.otherPlayers[t.id]})),e.onOpponentLeft(a);break;case"other_players":console.log("Received other players",a),e.otherPlayers=a,e.triggerSingleOpponentJoined();break;case"opponent_joined":e.otherPlayers.push(a),e.onOpponentJoined(a,!1);break;case"custom_event":var s=a.eventCode,l=a.data,c=a.userId;e.onEvent(s,l,c);break;case"get_custom_data":case"set_custom_data":console.log(i+": "+a);var u=a.data||null,d=a.error||null,h=t.data.callbackKey||null;e.callbacks[h]&&e.callbacks[h](u,d)}}),!1),this.emit("sdk_injected",this.versionCode)}},{key:"iframeCallbackHandler",value:function(e,t){this.callbacks[e]=t}},{key:"addWebViewListeners",value:function(){var e=this;window.addEventListener("ns-brige-ready",(function(t){console.log("Web view bridge is ready now!.GoPlay SDK is ready now"),e.webViewBridge=t.detail||window.nsWebViewBridge,e.webViewBridge.on("match_info",(function(t){var n,o;console.log("Received match info",t),e.matchType=t.matchType,e.currentUser=t.current_user,e.otherPlayers=null!==(n=t.other_players)&&void 0!==n?n:[],e.state=null!==(o=t.state)&&void 0!==o?o:{},e.isSDKReady=!0,e.onReady(),e.triggerSingleOpponentJoined()})),e.webViewBridge.on("current_user",(function(t){console.log("Received current user",t),e.currentUser=t,e.isSDKReady||(e.isSDKReady=!0,e.onReady())})),e.webViewBridge.on("opponent_left",(function(t){console.log("Opponent left",t),e.otherPlayers.forEach((function(n){t.name===n.id&&delete e.otherPlayers[n.id]})),e.onOpponentLeft(t)})),e.webViewBridge.on("other_players",(function(t){console.log("Received other players",t),e.otherPlayers=t,e.triggerSingleOpponentJoined()})),e.webViewBridge.on("opponent_joined",(function(t){e.otherPlayers.push(t),e.onOpponentJoined(t,!1),console.log("New opponent joined",t)})),e.triggerSingleOpponentJoined=function(){e.otherPlayers.forEach((function(t){e.onOpponentJoined(t,!0)}))},e.webViewBridge.on("custom_event",(function(t){var n=t.eventCode,o=t.data,i=t.userId;e.onEvent(n,o,i)})),e.emit("sdk_injected",e.versionCode)}))}},{key:"emit",value:function(e,t,n){this.isWebView()?this.emitToNativeScript(e,t):this.emitToParentWindow(e,t,n)}},{key:"isWebView",value:function(){var e=window.self==window.top;return console.log("Is webview: ",e),e}},{key:"emitToParentWindow",value:function(e,t,n){window.parent.postMessage({eventName:e,data:JSON.stringify(t),callbackKey:n},"*")}},{key:"emitToNativeScript",value:function(e,t){var n=this.webViewBridge||window.nsWebViewBridge;n?(n.emit(e,t),console.log("".concat("Emit data to web view",": signal >>> ").concat(e,", ")," data >>> ".concat(t))):console.log("The webview bridge has not been injected yet!")}},{key:"getVersion",value:function(){return this.emit("version",this.version),this.version}},{key:"getCurrentPlayer",value:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:null,t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;if(this.gameStarted)return e&&e(this.currentUser),this.currentUser;t&&t(r)}},{key:"onReady",value:function(){}},{key:"onReady",value:function(){}},{key:"onEvent",value:function(e,t,n){}},{key:"onOpponentJoined",value:function(e,t){}},{key:"onOpponentLeft",value:function(e){}},{key:"getOtherPlayers",value:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:null,t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;if(this.gameStarted)return e?(e(this.otherPlayers),this.otherPlayers):void 0;t&&t(r)}},{key:"startGame",value:function(){this.gameStarted=!0,this.emit("start_game",{score:this.currentScore,state:this.state})}},{key:"updateCurrentScore",value:function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null,n=arguments.length>2&&void 0!==arguments[2]?arguments[2]:null;this.gameStarted?(this.currentScore=e,this.emit("current_score",{score:this.currentScore,state:this.state}),t&&t(this.currentScore)):n&&n(r)}},{key:"updateFinalScore",value:function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null,n=arguments.length>2&&void 0!==arguments[2]?arguments[2]:null,o=!(arguments.length>3&&void 0!==arguments[3])||arguments[3],i=!(arguments.length>4&&void 0!==arguments[4])||arguments[4];this.gameStarted?(this.finalScore=e,this.emit("final_score",{score:this.finalScore,state:this.state,stopGame:o,save:i}),t&&t(this.finalScore)):n&&n(r)}},{key:"updateSecureFinalScore",value:function(e,t){var n=!(arguments.length>2&&void 0!==arguments[2])||arguments[2],o=!(arguments.length>3&&void 0!==arguments[3])||arguments[3],i=arguments.length>4&&void 0!==arguments[4]?arguments[4]:null,a=arguments.length>5&&void 0!==arguments[5]?arguments[5]:null;this.gameStarted?(this.finalScore=e,this.emit("final_score",{score:this.finalScore,gameData:t,state:this.state,stopGame:n,save:o}),i&&i(this.finalScore)):a&&a(r)}},{key:"abortGame",value:function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null,n=arguments.length>2&&void 0!==arguments[2]?arguments[2]:null;this.gameStarted?(this.emit("abort_game",e),t&&t(e)):n&&n(r)}},{key:"sendPause",value:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{};this.emit("pause_game",e)}},{key:"sendResume",value:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{};this.emit("resume_game",e)}},{key:"sendChat",value:function(e){this.emit("chat",e)}},{key:"sendEvent",value:function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},n=arguments.length>2&&void 0!==arguments[2]&&arguments[2];this.emit("custom_event",{eventCode:e,data:t,save:n})}},{key:"setCustomData",value:function(e,t){var n=this;if(console.log(">>>> Registed event set_custom_data!"),this.isWebView())this.emit("set_custom_data",{valueObj:e}),this.webViewBridge.on("set_custom_data",(function(e){var o=e.success,i=e.error;t(o,i),n.webViewBridge.off("set_custom_data",(function(){console.log(">>>> Unregisted event set_custom_data!")}))}));else{var o=(new Date).getTime()+"_SET_CUSTOM_DATA";this.emit("set_custom_data",{valueObj:e},o),this.iframeCallbackHandler(o,t)}}},{key:"getCustomData",value:function(){var e=this,t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],n=arguments.length>1?arguments[1]:void 0;if(this.isWebView())this.emit("get_custom_data",{properties:t}),console.log(">>>> Registed event get_custom_data!"),this.webViewBridge.on("get_custom_data",(function(t){var o=t.data,i=t.error;n(o,i),e.webViewBridge.off("get_custom_data",(function(){console.log(">>>> Unregisted event get_custom_data!")}))}));else{var o=(new Date).getTime()+"_GET_CUSTOM_DATA";this.emit("get_custom_data",{properties:t},o),this.iframeCallbackHandler(o,n)}}},{key:"hidePlatformQuitButton",value:function(){this.gameStarted&&this.emit("hide_quit_button",{hide:!0})}},{key:"showAvatar",value:function(e){this.emit("show_avatar",{userId:e})}}])&&n(t.prototype,s),l&&n(t,l),e}();window.PHOTON_EVENT={GAME_START:1,UPDATE_STATE:2,UPDATE_FINAL_STATE:3,ABORT_GAME:4,PAUSE_GAME:5,RESUME_GAME:6,CHAT:7,FINISHED_GAME:99},window.MATCH_TYPE=i,window.GoPlaySDK=new s,s=window.GoPlaySDK}])}));
+
+const ABORT_REASON = {
+    TimedOut: 'TimedOut',
+    ShadowVariableMismatch: 'ShadowVariableMismatch',
+    GameException: 'GameException'
+};
+const MATCH_TYPE = {
+    realTimePvp: "REAL_TIME_PVP",
+    asyncPvp: "ASYNC_PVP",
+    singlePlayer: "SINGLE_PLAYER"
+};
+const GAME_TYPE = {
+    realTimePvp: "REAL_TIME_PVP",
+    asyncPvp: "ASYNC_PVP",
+    singlePlayer: "SINGLE_PLAYER",
+    singleAndRealTime: "SINGLE_PLAYER_AND_REAL_TIME_PVP",
+    singleAsync: "SINGLE_PLAYER_AND_ASYNC_PVP"
+};
+const PHOTON_EVENT = {
+    GAME_START: 1,
+    UPDATE_STATE: 2,
+    UPDATE_FINAL_STATE: 3,
+    ABORT_GAME: 4,
+    PAUSE_GAME: 5,
+    RESUME_GAME: 6,
+    CHAT:7,
+    FINISHED_GAME: 99
+}
+
+const GAME_NOT_STARTED = 'Error: game not started yet!';
+const NO_WEBVIEW_BRIDGE = 'The webview bridge has not been injected yet!';
+const EMIT_TO_WEBVIEW = 'Emit data to web view';
+const VERSION = 'version';
+const MATCH_INFO = 'match_info';
+const CURRENT_USER = 'current_user';
+const OTHER_PLAYERS = 'other_players';
+const OPPONENT_JOINED = 'opponent_joined';
+const OPPONENT_LEFT = 'opponent_left';
+const START_GAME = 'start_game';
+const CURRENT_SCORE = 'current_score';
+const FINAL_SCORE = 'final_score';
+const STOP_GAME = 'stop_game';
+const ABORT_GAME = 'abort_game';
+const SDK_INJECTED = 'sdk_injected';
+const CUSTOM_EVENT = 'custom_event';
+const HIDE_QUIT_BUTTON = 'hide_quit_button';
+const SET_CUSTOM_DATA = 'set_custom_data';
+const GET_CUSTOM_DATA = 'get_custom_data';
+const PAUSE_GAME = 'pause_game';
+const RESUME_GAME = 'resume_game';
+const CHAT = 'chat';
+const SHOW_AVATAR = 'show_avatar';
+class GoPlaySDK {
+    version = '1.0.1';
+    versionCode = 0;
+    matchType = MATCH_TYPE.singlePlayer;
+    gameType = GAME_TYPE.singlePlayer;
+    currentUser = {}
+    otherPlayers = [];
+    currentScore = 0;
+    finalScore = 0;
+    gameStarted = false;
+    webViewBridge = null;
+    state = {};
+    isSDKReady = false;
+    callbacks = {};
+    chatEmojis =[]
+    loadingExpiredAt = 0;
+    matchInfo = {};
+    aesKey;
+    constructor(){
+        var number = 1;
+        var versionCode = 0;
+        this.version.split('.').reverse().forEach(function(code){
+            versionCode = versionCode +  number*code
+            number = number*100;
+        });
+        this.versionCode = versionCode;
+        console.log('SDK constructor run: '+ this.version + " : "+ this.versionCode+ " : "+ versionCode);
+
+        if (this.isWebView()) {
+            this.addWebViewListeners();
+        } else {
+            this.addParentFrameListeners();
+        }
+    }
+
+    // Listen event from parent frame for web version.
+    addParentFrameListeners() {
+        window.addEventListener('message', (event) => {
+            const eventName = event.data.eventName || null;
+            const payload = event.data.data || null;
+            this.triggerSingleOpponentJoined = () => {
+                this.otherPlayers.forEach((opponent) => {
+                    this.onOpponentJoined(opponent, true)
+                })
+            }
+            switch (eventName) {
+                case MATCH_INFO:
+                    console.log('Received match info', payload);
+                    this.matchType = payload.matchType;
+                    this.gameType = payload.gameType;
+                    this.currentUser = payload.current_user;
+                    this.otherPlayers = payload.other_players??[];
+                    this.state = payload.state??{};
+                    this.chatEmojis = payload.chatEmojis;
+                    this.loadingExpiredAt= payload.loadingExpiredAt;
+                    this.aesKey = payload.aesKey;
+                    this.matchInfo = payload;
+                    this.isSDKReady = true;
+                    this.onReady();
+                    this.triggerSingleOpponentJoined();
+                    break;
+                case CURRENT_USER:
+                    console.log('Received current user', payload);
+
+                    this.currentUser = payload;
+                    if(!this.isSDKReady){
+                        this.isSDKReady = true;
+                        this.onReady();
+                    }
+                    break;
+                case OPPONENT_LEFT:
+                    console.log('Opponent left', payload);
+                    this.otherPlayers.forEach((other) => {
+                        if(payload.name === other.id){
+                            delete this.otherPlayers[other.id];
+                        }
+                    });
+                    this.onOpponentLeft(payload);
+                    break;
+                case OTHER_PLAYERS:
+                    console.log('Received other players', payload);
+                    this.otherPlayers = payload;
+                    this.triggerSingleOpponentJoined();
+
+                    break;
+                case OPPONENT_JOINED:
+                    this.otherPlayers.push(payload);
+                    this.onOpponentJoined(payload, false)
+                    break;
+                case CUSTOM_EVENT:
+                    const eventCode = payload.eventCode;
+                    const eventData = payload.data;
+                    const userId = payload.userId;
+                    this.onEvent(eventCode, eventData, userId);
+                    break;
+                case GET_CUSTOM_DATA:
+                case SET_CUSTOM_DATA:
+                    console.log(eventName + ': '+  payload);
+                    const responseData = payload.data || null;
+                    const responseError = payload.error || null;
+                    const callbackKey = event.data.callbackKey || null;
+                    if (this.callbacks[callbackKey]) {
+                        this.callbacks[callbackKey](responseData, responseError);
+                    }
+                    break;
+            }
+        }, false)
+        //emit sdk version
+        this.emit(SDK_INJECTED, this.versionCode);
+    }
+
+    iframeCallbackHandler(callbackKey, callback) {
+        this.callbacks[callbackKey] = callback;
+    }
+
+    addWebViewListeners() {
+        window.addEventListener("ns-brige-ready", (e) => {
+            console.log('Web view bridge is ready now!.GoPlay SDK is ready now');
+            this.webViewBridge = e.detail || window.nsWebViewBridge;
+
+            this.webViewBridge.on(MATCH_INFO, (payload) => {
+                console.log('Received match info', payload);
+                this.matchType = payload.matchType;
+                this.currentUser = payload.current_user;
+                this.otherPlayers = payload.other_players??[];
+                this.state = payload.state??{};
+
+                this.isSDKReady = true;
+                this.onReady();
+                this.triggerSingleOpponentJoined();
+            })
+
+            this.webViewBridge.on(CURRENT_USER, (payload) => {
+                console.log('Received current user', payload);
+                this.currentUser = payload;
+                if(!this.isSDKReady){
+                    this.isSDKReady = true;
+                    this.onReady();
+                }
+
+            })
+
+            this.webViewBridge.on(OPPONENT_LEFT, (payload) => {
+                console.log('Opponent left', payload);
+                this.otherPlayers.forEach((other) => {
+                    if(payload.name === other.id){
+                        delete this.otherPlayers[other.id];
+                    }
+                });
+                this.onOpponentLeft(payload);
+            })
+
+            this.webViewBridge.on(OTHER_PLAYERS, (payload) => {
+                console.log('Received other players', payload);
+                this.otherPlayers = payload;
+                this.triggerSingleOpponentJoined();
+
+            });
+
+            this.webViewBridge.on(OPPONENT_JOINED, (payload) => {
+                this.otherPlayers.push(payload);
+                this.onOpponentJoined(payload, false);
+                console.log('New opponent joined', payload);
+            });
+
+            this.triggerSingleOpponentJoined = () => {
+                this.otherPlayers.forEach((opponent) => {
+                    this.onOpponentJoined(opponent, true)
+                })
+            }
+
+            this.webViewBridge.on(CUSTOM_EVENT, (payload) => {
+                const eventCode = payload.eventCode;
+                const eventData = payload.data;
+                const userId = payload.userId;
+
+                this.onEvent(eventCode, eventData, userId);
+            });
+            this.emit(SDK_INJECTED, this.versionCode);
+        })
+    }
+
+
+
+    /**
+     * Emit data to native script application via the webview bridge (auto injected to web view)
+     * Check: https://github.com/Notalib/nativescript-webview-ext
+     * @param {string} signal
+     * @param {*} data
+     */
+    emit(signal, data, callbackKey) {
+        if (this.isWebView()) {
+            this.emitToNativeScript(signal, data);
+
+        } else {
+            this.emitToParentWindow(signal, data, callbackKey);
+        }
+    }
+
+    isWebView() {
+        // The web view is not in iframe. for the web version. the game attached in the iframe. so we check if it's not a frame/iframe
+        const isWebView = window.self == window.top;
+        console.log('Is webview: ', isWebView);
+        return isWebView;
+    }
+
+    // emit from the iframe to parent window
+    emitToParentWindow(signal, data, callbackKey) {
+        window.parent.postMessage({ eventName: signal, data: JSON.stringify(data), callbackKey: callbackKey }, "*");
+    }
+
+    // emit from webview to native script.
+    emitToNativeScript(signal, data) {
+        const bridge = this.webViewBridge || window.nsWebViewBridge;
+        if (bridge) {
+            bridge.emit(signal, data);
+            console.log(`${EMIT_TO_WEBVIEW}: signal >>> ${signal}, `, ` data >>> ${data}`);
+        } else {
+            console.log(NO_WEBVIEW_BRIDGE);
+        }
+    }
+
+    /**
+     * Get sdk version
+     */
+    getVersion() {
+        this.emit(VERSION, this.version);
+        return this.version;
+    }
+
+    /**
+     * Returns current user's public info. The current user is the local user that launched the game/platform.
+     * @param {Function} onSuccess
+     * @param {Function} onFailed
+     */
+    getCurrentPlayer(onSuccess = null, onFailed = null) {
+        if (!this.gameStarted) {
+            if (onFailed) {
+                onFailed(GAME_NOT_STARTED)
+            }
+            return;
+        }
+
+        if (onSuccess) {
+            onSuccess(this.currentUser);
+
+        }
+        return this.currentUser;
+    }
+
+    // On the SDK is ready to communicate with the app (platform), Override to use it.
+    onReady() {
+        // Override to use it
+    }
+// On the SDK is ready to communicate with the app (platform), Override to use it.
+    onReady() {
+        // Override to use it
+    }
+
+    // On Receive custom event. Override to use it.
+    onEvent(eventCode, data, userId) {
+        // Override to use it
+    }
+
+    // On the opponent joined the game/room, Override to use it.
+    onOpponentJoined(opponent, flag) {
+        // Override to use it
+    }
+
+    // On the opponent left the game/room, Override to use it.
+    onOpponentLeft(opponent) {
+        // Override to use it
+    }
+
+    /*  Returns array of current user's opponents.
+        The opponents is the player local user is playing against. Returns null for single-player games.*/
+    getOtherPlayers(onSuccess = null, onFailed = null) {
+        if (!this.gameStarted) {
+            if (onFailed) {
+                onFailed(GAME_NOT_STARTED)
+            }
+            return;
+        }
+
+        if (onSuccess) {
+            onSuccess(this.otherPlayers);
+            return this.otherPlayers;
+        }
+
+    }
+
+
+    /*  Will be called when an HTML5 game is launched and gameplay is about to begin,
+        this call must be made to the platform indicating a game session has begun.
+        Further gameplay API calls will be ignored until StartGame() has been called.
+        This should also be called on each new round of game play. */
+    startGame() {
+        this.gameStarted = true;
+        this.emit(START_GAME, { score: this.currentScore, state: this.state });
+    }
+    /*  Each time the game score changes, call this to report the latest score.
+        This is used to help prevent cheating and to help re-establish lost connections.
+        Available only after StartGame(). */
+    updateCurrentScore(score, onSuccess = null, onFailed = null, gameTime = null) {
+        if (!this.gameStarted) {
+            if (onFailed) {
+                onFailed(GAME_NOT_STARTED)
+            }
+            return;
+        }
+
+        this.currentScore = score;
+        this.emit(CURRENT_SCORE, { score: this.currentScore, state: this.state});
+
+        if (onSuccess) {
+            onSuccess(this.currentScore);
+        }
+
+
+    }
+
+    /*  Called by the client to report the final score earned by the player.
+        Any additional calls to game APIs are ignored with the exception of StartGame().
+        Available only after StartGame(). */
+    updateFinalScore(score, onSuccess = null, onFailed = null, stopGame = true, save = true) {
+        if (!this.gameStarted) {
+            if (onFailed) {
+                onFailed(GAME_NOT_STARTED);
+            }
+            return;
+        }
+
+        this.finalScore = score;
+        this.emit(FINAL_SCORE, { score: this.finalScore, state: this.state, stopGame: stopGame , save: save });
+        if (onSuccess) {
+            onSuccess(this.finalScore);
+        }
+
+    }
+
+    updateSecureFinalScore(score, gameData, stopGame = true, save = true, onSuccess = null, onFailed = null) {
+        if (!this.gameStarted) {
+            if (onFailed) {
+                onFailed(GAME_NOT_STARTED);
+            }
+            return;
+        }
+
+        this.finalScore = score;
+        this.emit(FINAL_SCORE, { score: this.finalScore, gameData, state: this.state, stopGame: stopGame , save: save });
+        if (onSuccess) {
+            onSuccess(this.finalScore);
+        }
+
+    }
+    /*
+        Called to end the game session. Aborted games score lower than 0 in matched games.
+        reason:
+           + TimedOut - game session took too long to complete due to device sleeping, cheating, etc.
+           + ShadowVariableMismatch - game detected variable tampering (mismatch with shadow variable)
+           + GameException - trapped exception
+    */
+
+    abortGame(reason, onSuccess = null, onFailed = null) {
+        if (!this.gameStarted) {
+            if (onFailed) {
+                onFailed(GAME_NOT_STARTED)
+            }
+            return;
+        }
+        this.emit(ABORT_GAME, reason);
+        if (onSuccess) {
+            onSuccess(reason);
+        }
+    }
+
+    /*
+       Called to pause the game session due app to background or player click on pause button.
+       - Platform will don't count the time for ghost profile until sendResume called.
+       - Other players will received the custom_event PAUSE_GAME: 5
+   */
+    sendPause(data = {}) {
+        this.emit(PAUSE_GAME, data);
+    }
+
+    /*
+       Called to resume the game (sendPause must be called later).
+       - Platform will continue count the time for ghost profile.
+       - Other players will received the custom_event RESUME_GAME: 6
+   */
+
+    sendResume(data = {}) {
+        this.emit(RESUME_GAME, data);
+    }
+    /*
+           Called to send chat message.
+           data:
+              -- data.emoji(optional) : {id: string, src: string}
+              -- data.message(optional): string
+       */
+
+    sendChat(data) {
+        this.emit(CHAT, data);
+    }
+    // Send custom event
+    /**
+     * Send custom event
+     * @param {number} eventCode
+     * @param {*} data
+     *  @param {boolean} save: save this event to the ghost profile
+     */
+
+    sendEvent(eventCode, data = {}, save = false) {
+        this.emit(CUSTOM_EVENT, { eventCode: eventCode, data: data, save });
+    }
+
+    setCustomData(valueObj, callback) {
+        console.log('>>>> Registed event set_custom_data!')
+        if (this.isWebView()) {
+            this.emit(SET_CUSTOM_DATA, { valueObj: valueObj });
+            this.webViewBridge.on(SET_CUSTOM_DATA, (payload) => {
+                const success = payload.success;
+                const error = payload.error;
+                callback(success, error);
+                this.webViewBridge.off(SET_CUSTOM_DATA, () => {
+                    console.log('>>>> Unregisted event set_custom_data!')
+                })
+            })
+        } else {
+
+            const callbackKey = new Date().getTime() + '_SET_CUSTOM_DATA';
+            this.emit(SET_CUSTOM_DATA, { valueObj: valueObj }, callbackKey);
+            this.iframeCallbackHandler(callbackKey, callback)
+        }
+
+    }
+
+    getCustomData(properties = [], callback) {
+        if (this.isWebView()) {
+            this.emit(GET_CUSTOM_DATA, { properties: properties });
+            console.log('>>>> Registed event get_custom_data!')
+
+            this.webViewBridge.on(GET_CUSTOM_DATA, (payload) => {
+                const data = payload.data;
+                const error = payload.error;
+                callback(data, error);
+                this.webViewBridge.off(GET_CUSTOM_DATA, () => {
+                    console.log('>>>> Unregisted event get_custom_data!')
+                })
+            })
+        } else {
+            const callbackKey = new Date().getTime() + '_GET_CUSTOM_DATA';
+            this.emit(GET_CUSTOM_DATA, { properties: properties }, callbackKey);
+            this.iframeCallbackHandler(callbackKey, callback)
+        }
+
+    }
+    hidePlatformQuitButton() {
+        if (!this.gameStarted) {
+            return;
+        }
+        this.emit(HIDE_QUIT_BUTTON, { hide: true });
+    }
+    showAvatar(userId) {
+        this.emit(SHOW_AVATAR, {userId});
+    }
+}
+window.PHOTON_EVENT = PHOTON_EVENT;
+window.MATCH_TYPE = MATCH_TYPE;
+window.GoPlaySDK = new GoPlaySDK();
+GoPlaySDK= window.GoPlaySDK
