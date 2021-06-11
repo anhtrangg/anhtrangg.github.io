@@ -1,0 +1,55 @@
+
+cry.png
+size: 308,308
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+002
+  rotate: false
+  xy: 151, 3
+  size: 56, 59
+  orig: 56, 59
+  offset: 0, 0
+  index: -1
+004
+  rotate: false
+  xy: 268, 221
+  size: 25, 29
+  orig: 25, 29
+  offset: 0, 0
+  index: -1
+005
+  rotate: true
+  xy: 209, 3
+  size: 59, 44
+  orig: 59, 44
+  offset: 0, 0
+  index: -1
+006
+  rotate: true
+  xy: 268, 252
+  size: 51, 27
+  orig: 51, 27
+  offset: 0, 0
+  index: -1
+007
+  rotate: true
+  xy: 2, 3
+  size: 59, 147
+  orig: 61, 149
+  offset: 0, 0
+  index: -1
+008
+  rotate: false
+  xy: 255, 14
+  size: 48, 48
+  orig: 48, 49
+  offset: 0, 0
+  index: -1
+face
+  rotate: false
+  xy: 2, 64
+  size: 264, 239
+  orig: 273, 244
+  offset: 4, 5
+  index: -1

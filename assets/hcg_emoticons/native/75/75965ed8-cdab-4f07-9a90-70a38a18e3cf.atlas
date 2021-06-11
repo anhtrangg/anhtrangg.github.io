@@ -1,0 +1,27 @@
+
+fun.png
+size: 400,400
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+001
+  rotate: false
+  xy: 2, 154
+  size: 273, 244
+  orig: 273, 244
+  offset: 0, 0
+  index: -1
+002
+  rotate: true
+  xy: 277, 230
+  size: 168, 121
+  orig: 168, 121
+  offset: 0, 0
+  index: -1
+003
+  rotate: true
+  xy: 277, 155
+  size: 73, 24
+  orig: 73, 24
+  offset: 0, 0
+  index: -1

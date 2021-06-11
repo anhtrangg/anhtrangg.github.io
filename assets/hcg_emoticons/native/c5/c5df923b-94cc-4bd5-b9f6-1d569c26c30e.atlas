@@ -1,0 +1,41 @@
+
+panic_emoij.png
+size: 348,348
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+assets/001
+  rotate: false
+  xy: 2, 100
+  size: 273, 244
+  orig: 273, 244
+  offset: 0, 0
+  index: -1
+assets/002
+  rotate: false
+  xy: 277, 275
+  size: 67, 69
+  orig: 68, 71
+  offset: 0, 1
+  index: -1
+assets/003
+  rotate: false
+  xy: 277, 116
+  size: 25, 29
+  orig: 25, 29
+  offset: 0, 0
+  index: -1
+assets/004
+  rotate: true
+  xy: 277, 147
+  size: 59, 44
+  orig: 59, 44
+  offset: 0, 0
+  index: -1
+assets/005
+  rotate: false
+  xy: 277, 208
+  size: 48, 65
+  orig: 48, 65
+  offset: 0, 0
+  index: -1

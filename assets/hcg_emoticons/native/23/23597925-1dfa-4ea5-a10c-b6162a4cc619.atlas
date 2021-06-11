@@ -1,0 +1,34 @@
+
+cool.png
+size: 320,320
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+001
+  rotate: false
+  xy: 2, 74
+  size: 273, 244
+  orig: 273, 244
+  offset: 0, 0
+  index: -1
+002
+  rotate: false
+  xy: 2, 2
+  size: 227, 70
+  orig: 227, 70
+  offset: 0, 0
+  index: -1
+003
+  rotate: true
+  xy: 277, 121
+  size: 73, 24
+  orig: 73, 24
+  offset: 0, 0
+  index: -1
+004
+  rotate: true
+  xy: 277, 196
+  size: 122, 35
+  orig: 122, 35
+  offset: 0, 0
+  index: -1

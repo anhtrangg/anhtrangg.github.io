@@ -1,0 +1,48 @@
+
+angry.png
+size: 524,524
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+001
+  rotate: true
+  xy: 278, 249
+  size: 273, 244
+  orig: 273, 244
+  offset: 0, 0
+  index: -1
+002
+  rotate: false
+  xy: 2, 277
+  size: 274, 245
+  orig: 274, 245
+  offset: 0, 0
+  index: -1
+003
+  rotate: false
+  xy: 120, 256
+  size: 71, 19
+  orig: 71, 19
+  offset: 0, 0
+  index: -1
+004
+  rotate: false
+  xy: 2, 226
+  size: 52, 49
+  orig: 52, 49
+  offset: 0, 0
+  index: -1
+005
+  rotate: false
+  xy: 193, 251
+  size: 25, 24
+  orig: 25, 24
+  offset: 0, 0
+  index: -1
+006
+  rotate: false
+  xy: 56, 248
+  size: 62, 27
+  orig: 62, 29
+  offset: 0, 2
+  index: -1
