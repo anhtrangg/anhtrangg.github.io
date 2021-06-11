@@ -521,3 +521,8 @@ window.PHOTON_EVENT = PHOTON_EVENT;
 window.MATCH_TYPE = MATCH_TYPE;
 window.GoPlaySDK = new GoPlaySDK();
 GoPlaySDK= window.GoPlaySDK
+
+
+function callJS(message){
+    console.log("anhtq " + message);
+}
