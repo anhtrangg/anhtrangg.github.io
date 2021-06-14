@@ -533,7 +533,10 @@ window.MATCH_TYPE = MATCH_TYPE;
 window.GoPlaySDK = new GoPlaySDK();
 GoPlaySDK= window.GoPlaySDK
 
-
 function callJS(message){
     console.log("anhtq " + message);
+}
+
+function setCurrentUser(userData){
+    GoPlaySDK.setCurrentUser(userData);
 }
