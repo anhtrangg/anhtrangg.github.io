@@ -520,7 +520,7 @@ class GoPlaySDK {
 
     //flutter process
     setCurrentUser(userData){
-        Toast.postMessage("setCurrentUser called this message");
+        AnhTQ.postMessage("setCurrentUser called this message");
         console.log('Received current user', userData);
         this.currentUser = userData;
         if(!this.isSDKReady){
@@ -537,7 +537,7 @@ GoPlaySDK= window.GoPlaySDK
 
 function callJS(message){
     console.log("anhtq " + message);
-    Toast.postMessage("callJS called this message");
+    AnhTQ.postMessage("callJS called this message");
 }
 
 function setCurrentUser(userData){
