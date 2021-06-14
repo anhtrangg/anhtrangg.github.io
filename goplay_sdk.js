@@ -516,6 +516,17 @@ class GoPlaySDK {
     showAvatar(userId) {
         this.emit(SHOW_AVATAR, {userId});
     }
+
+    //flutter process
+    setCurrentUser(userData){
+        console.log('Received current user', userData);
+        this.currentUser = userData;
+        if(!this.isSDKReady){
+            this.isSDKReady = true;
+            this.onReady();
+        }
+    }
+
 }
 window.PHOTON_EVENT = PHOTON_EVENT;
 window.MATCH_TYPE = MATCH_TYPE;
