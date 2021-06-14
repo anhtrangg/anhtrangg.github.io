@@ -1,3 +1,4 @@
+const { Toast } = require("bootstrap");
 
 const ABORT_REASON = {
     TimedOut: 'TimedOut',
@@ -519,6 +520,7 @@ class GoPlaySDK {
 
     //flutter process
     setCurrentUser(userData){
+        Toast.postMessage("setCurrentUser called this message");
         console.log('Received current user', userData);
         this.currentUser = userData;
         if(!this.isSDKReady){
@@ -535,8 +537,9 @@ GoPlaySDK= window.GoPlaySDK
 
 function callJS(message){
     console.log("anhtq " + message);
+    Toast.postMessage("callJS called this message");
 }
 
 function setCurrentUser(userData){
-    GoPlaySDK.setCurrentUser(userData);
+    GoPlaySDK.setCurrentUser(JSON.parse(userData));
 }
