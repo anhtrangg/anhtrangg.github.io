@@ -541,5 +541,6 @@ function callJS(message){
 }
 
 function setCurrentUser(userData){
-    GoPlaySDK.setCurrentUser(JSON.parse(userData));
+    AnhTQ.postMessage("setCurrentUser called this message" + userData);
+    GoPlaySDK.setCurrentUser("");
 }
