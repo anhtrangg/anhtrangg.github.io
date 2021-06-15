@@ -520,7 +520,7 @@ class GoPlaySDK {
 
     //flutter process
     setCurrentUser(userData){
-        AnhTQ.postMessage("setCurrentUser called this message");
+        //AnhTQ.postMessage("setCurrentUser called this message");
         //console.log('Received current user', userData);
         //this.currentUser = userData;
         // if(!this.isSDKReady){
