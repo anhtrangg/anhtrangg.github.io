@@ -526,7 +526,7 @@ class GoPlaySDK {
         // if(!this.isSDKReady){
         //     this.isSDKReady = true;
         //     this.onReady();
-        }
+//         }
     }
 
 }
