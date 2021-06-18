@@ -518,13 +518,13 @@ class GoPlaySDK {
 
     //flutter process
     setCurrentUser(userData){
-        //AnhTQ.postMessage("setCurrentUser called this message");
-        //console.log('Received current user', userData);
-        //this.currentUser = userData;
-        // if(!this.isSDKReady){
-        //     this.isSDKReady = true;
-        //     this.onReady();
-//         }
+        AnhTQ.postMessage("setCurrentUser called this message");
+        console.log('Received current user', userData);
+        this.currentUser = userData;
+        if(!this.isSDKReady){
+            this.isSDKReady = true;
+            this.onReady();
+        }
     }
 
 }
