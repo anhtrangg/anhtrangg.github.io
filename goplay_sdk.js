@@ -527,6 +527,18 @@ class GoPlaySDK {
         }
     }
 
+    setMatchInfo(matchInfo){
+        AnhTQ.postMessage("setMatchInfo called this message");
+        console.log('Received current user', userData);
+        this.matchType = matchInfo.matchType;
+        this.currentUser = matchInfo.current_user;
+        this.otherPlayers = matchInfo.other_players??[];
+        this.state = matchInfo.state??{};
+        this.isSDKReady = true;
+        this.onReady();
+        this.triggerSingleOpponentJoined();
+    }
+
 }
 window.PHOTON_EVENT = PHOTON_EVENT;
 window.MATCH_TYPE = MATCH_TYPE;
@@ -541,4 +553,9 @@ function callJS(message){
 function setCurrentUser(userData){
     AnhTQ.postMessage("setCurrentUser called this message" + userData);
     window.GoPlaySDK.setCurrentUser("");
+}
+
+function setMatchInfo(matchInfo){
+    AnhTQ.postMessage("setMatchInfo calledthis message" + userData);
+    window.GoPlaySDK.setMatchInfo(matchInfo);
 }
