@@ -529,7 +529,7 @@ class GoPlaySDK {
 
     setMatchInfo(matchInfo){
         AnhTQ.postMessage("setMatchInfo called this message");
-        console.log('Received current user', userData);
+        console.log('Received current user', matchInfo);
         this.matchType = matchInfo.matchType;
         this.currentUser = matchInfo.current_user;
         this.otherPlayers = matchInfo.other_players??[];
