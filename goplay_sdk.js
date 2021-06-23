@@ -557,5 +557,5 @@ function setCurrentUser(userData){
 
 function setMatchInfo(matchInfo){
     AnhTQ.postMessage("setMatchInfo calledthis message" + userData);
-    window.GoPlaySDK.setMatchInfo(matchInfo);
+    window.GoPlaySDK.setMatchInfo("");
 }
