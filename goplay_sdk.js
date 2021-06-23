@@ -303,10 +303,6 @@ class GoPlaySDK {
     onReady() {
         // Override to use it
     }
-// On the SDK is ready to communicate with the app (platform), Override to use it.
-    onReady() {
-        // Override to use it
-    }
 
     // On Receive custom event. Override to use it.
     onEvent(eventCode, data, userId) {
