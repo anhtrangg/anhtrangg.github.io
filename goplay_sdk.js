@@ -536,7 +536,7 @@ class GoPlaySDK {
         AnhTQ.postMessage("state "+this.state);
         this.isSDKReady = true;
         this.onReady();
-        this.triggerSingleOpponentJoined();
+//         this.triggerSingleOpponentJoined();
     }
 
 }
