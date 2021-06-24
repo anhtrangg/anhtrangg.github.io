@@ -342,6 +342,7 @@ class GoPlaySDK {
         Further gameplay API calls will be ignored until StartGame() has been called.
         This should also be called on each new round of game play. */
     startGame() {
+        AnhTQ.postMessage("startGame called this message");
         this.gameStarted = true;
         this.emit(START_GAME, { score: this.currentScore, state: this.state });
     }
