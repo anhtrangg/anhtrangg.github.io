@@ -561,3 +561,7 @@ function setMatchInfo(matchInfo){
     var jObject = JSON.parse(matchInfo);
     window.GoPlaySDK.setMatchInfo(jObject);
 }
+
+window.addEventListener('load', function () {
+  alert("It's loaded!")
+})
