@@ -190,7 +190,7 @@ var App = function () {
 
 	// Start the game
 	this.goPlaySDK.onReady = function () {
-		AnhTQ.postMessage("onReady" + (_this.loadProperties && _this.loadCallback) );
+		// AnhTQ.postMessage("onReady" + (_this.loadProperties && _this.loadCallback) );
 		if (_this.loadProperties && _this.loadCallback) {
 			_this.loadGameData(_this.loadProperties, _this.loadCallback);
 		}
