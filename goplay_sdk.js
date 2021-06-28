@@ -558,7 +558,7 @@ function setCurrentUser(userData) {
 }
 
 function setMatchInfo(matchInfo) {
-    AnhTQ.postMessage("setMatchInfo calledthis message" + matchInfo);
+    // AnhTQ.postMessage("setMatchInfo calledthis message" + matchInfo);
     var jObject = JSON.parse(matchInfo);
     window.GoPlaySDK.setMatchInfo(jObject);
 }
