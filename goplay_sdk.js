@@ -559,12 +559,12 @@ function setCurrentUser(userData) {
 
 function setMatchInfo(matchInfo) {
     // AnhTQ.postMessage("setMatchInfo calledthis message" + matchInfo);
-    var jObject = JSON.parse(matchInfo);
-    window.GoPlaySDK.setMatchInfo(jObject);
+    // var jObject = JSON.parse(matchInfo);
+    window.GoPlaySDK.setMatchInfo(matchInfo);
 }
 
 var jsonStr = {
-    matchtype: "SINGLE_PLAYER", current_user:
+    matchType: "SINGLE_PLAYER", current_user:
     {
         "data": {
             "id": "usr-269f4a72-194d-4056-94ac-b4502d92dbc4",
