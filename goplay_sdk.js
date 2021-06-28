@@ -529,13 +529,13 @@ class GoPlaySDK {
         // AnhTQ.postMessage("setMatchInfo called this message");
         console.log('Received current user', matchInfo);
         this.matchType = matchInfo.matchType;
-        AnhTQ.postMessage("matchType " + this.matchType);
+        // AnhTQ.postMessage("matchType " + this.matchType);
         this.currentUser = matchInfo.current_user;
-        AnhTQ.postMessage("currentUser " + this.currentUser);
+        // AnhTQ.postMessage("currentUser " + this.currentUser);
         this.otherPlayers = matchInfo.other_players ?? [];
-        AnhTQ.postMessage("otherPlayers " + this.otherPlayers);
+        // AnhTQ.postMessage("otherPlayers " + this.otherPlayers);
         this.state = matchInfo.state ?? {};
-        AnhTQ.postMessage("state " + this.state);
+        // AnhTQ.postMessage("state " + this.state);
         this.isSDKReady = true;
         this.onReady();
         //         this.triggerSingleOpponentJoined();
