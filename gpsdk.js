@@ -296,7 +296,6 @@ var App = function () {
 	}
 
 	this.startGame = function () {
-		// AnhTQ.postMessage("gpsdk startGame called this message");
 		this.goPlaySDK.startGame();
 
 		//check for start ourown game if opponent has already started their game.
