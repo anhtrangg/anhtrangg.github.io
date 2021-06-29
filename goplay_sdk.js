@@ -564,7 +564,8 @@ function setMatchInfo(matchInfo) {
 }
 
 var jsonStr = {
-    matchType: "SINGLE_PLAYER", current_user:
+    matchType: "SINGLE_PLAYER", aesKey: "0102030405060708090a0b0c0d0e0f10",
+    current_user:
     {
         "id": "usr-269f4a72-194d-4056-94ac-b4502d92dbc4",
         "avatar": {
