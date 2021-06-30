@@ -240,7 +240,9 @@ class GoPlaySDK {
      * @param {*} data
      */
     emit(signal, data, callbackKey) {
-        if (this.isWebView()) {
+        if (this.isFlutterApp){
+            this.emitToFlutter(signal, data);
+        } else if (this.isWebView()) {
             this.emitToNativeScript(signal, data);
 
         } else {
@@ -269,6 +271,10 @@ class GoPlaySDK {
         } else {
             console.log(NO_WEBVIEW_BRIDGE);
         }
+    }
+
+    emitToFlutter(signal,data) {
+        AnhTQ.postMessage(JSON.stringify({"signal": signal, "data":data}));
     }
 
     /**
@@ -342,7 +348,6 @@ class GoPlaySDK {
         Further gameplay API calls will be ignored until StartGame() has been called.
         This should also be called on each new round of game play. */
     startGame() {
-        AnhTQ.postMessage("startGame called this message");
         console.log("start game");
         this.gameStarted = true;
         this.emit(START_GAME, { score: this.currentScore, state: this.state });
@@ -516,7 +521,6 @@ class GoPlaySDK {
 
     //flutter process
     setCurrentUser(userData) {
-        AnhTQ.postMessage("setCurrentUser called this message");
         console.log('Received current user', userData);
         this.currentUser = userData;
         if (!this.isSDKReady) {
@@ -526,7 +530,6 @@ class GoPlaySDK {
     }
 
     setMatchInfo(matchInfo) {
-        AnhTQ.postMessage("setMatchInfo called this message");
         console.log('Received current user', matchInfo);
         this.aesKey = matchInfo.aesKey;
         this.matchType = matchInfo.matchType;
@@ -549,104 +552,10 @@ function callJS(message) {
 }
 
 function setCurrentUser(userData) {
-    AnhTQ.postMessage("setCurrentUser called this message" + userData);
     window.GoPlaySDK.setCurrentUser("");
 }
 
 function setMatchInfo(matchInfo) {
-    AnhTQ.postMessage("setMatchInfo calledthis message" + matchInfo);
     var jObject = JSON.parse(matchInfo);
     window.GoPlaySDK.setMatchInfo(jObject);
 }
-
-// var jsonStr = {
-//     matchType: "SINGLE_PLAYER", aesKey: "0102030405060708090a0b0c0d0e0f10",
-//     current_user:
-//     {
-//         "id": "usr-269f4a72-194d-4056-94ac-b4502d92dbc4",
-//         "avatar": {
-//             "link": "https://lh3.googleusercontent.com/a-/AOh14GjDeey6Pe-fIeXGBaCBJqNRIJEnIFzR_HmNzLKS=s96-c"
-//         },
-//         "coverPhoto": {},
-//         "firstName": "Tran",
-//         "lastName": "Quoc Anh",
-//         "displayName": "Quoc Anh Tran",
-//         "status": "active",
-//         "country": "VN",
-//         "resetPasswordFailedConsecutive": {
-//             "counter": 0
-//         },
-//         "userCode": "m7En1",
-//         "stats": {
-//             "follow": {
-//                 "followers": 2,
-//                 "followings": 0,
-//                 "newRequests": 0
-//             },
-//             "inbox": 0
-//         },
-//         "online": false,
-//         "externalUserIds": {
-//             "google": "116222999005159432751"
-//         },
-//         "emailVerified": true,
-//         "firstLogin": false,
-//         "tutorialStep": "PlayGame",
-//         "numberInvitedFriend": 0,
-//         "loginCount": 1,
-//         "lastLoginDate": "2021-05-11T06:12:16.649Z",
-//         "loginCountToday": 1,
-//         "publicProfile": true,
-//         "username": "m7En1_m7En1",
-//         "email": "anh.tran@gogame.net",
-//         "userSettings": {
-//             "notification": {
-//                 "allowPushNotification": true,
-//                 "msgText": true,
-//                 "msgImageVideo": true,
-//                 "msgVoice": true,
-//                 "msgChallenges": true,
-//                 "alertSounds": true,
-//                 "alertVibration": true,
-//                 "friendInvite": true
-//             },
-//             "gamesDownloadWifi": true,
-//             "language": "en",
-//             "privacy": {
-//                 "hideLocation": true,
-//                 "suggestMeToOthers": true,
-//                 "onlineNotifyFollowers": true
-//             }
-//         },
-//         "recent_played_games": [
-//             "5f05a73207c14053cbfc2ce6",
-//             "5f05888d2d6a854f180641fe",
-//             "5f05a49007c14053cbfc2cda",
-//             "5f05a36207c14053cbfc2cd2",
-//             "5f058ae32d6a854f18064206",
-//             "5f05a6d207c14053cbfc2ce3",
-//             "5f05a54b07c14053cbfc2cdc",
-//             "5f05a4c907c14053cbfc2cdb",
-//             "5f05a3fd07c14053cbfc2cd6",
-//             "5f05a64107c14053cbfc2cdf",
-//             "600ab4ecec5e0e4cdaa4f374",
-//             "5f05a33807c14053cbfc2cd1"
-//         ],
-//         "dailyLoginReward": true,
-//         "numAchievements": 54,
-//         "numDailyQuests": 0,
-//         "numFriendRequests": 0,
-//         "favouriteGames": [],
-//         "role": "player",
-//         "wallet": {
-//             "GEM": 265,
-//             "CREDIT": 340
-//         },
-//         "accountType": "FREE"
-//     }
-// };
-
-// window.addEventListener('load', function () {
-//     console.log("anhtq " + jsonStr);
-//     setMatchInfo(jsonStr);
-// })
