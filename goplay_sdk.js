@@ -67,6 +67,7 @@ class GoPlaySDK {
     loadingExpiredAt = 0;
     matchInfo = {};
     aesKey;
+    isFlutterApp = false;
     constructor() {
         var number = 1;
         var versionCode = 0;
@@ -520,15 +521,6 @@ class GoPlaySDK {
     }
 
     //flutter process
-    setCurrentUser(userData) {
-        console.log('Received current user', userData);
-        this.currentUser = userData;
-        if (!this.isSDKReady) {
-            this.isSDKReady = true;
-            this.onReady();
-        }
-    }
-
     setMatchInfo(matchInfo) {
         console.log('Received current user', matchInfo);
         this.aesKey = matchInfo.aesKey;
@@ -549,6 +541,10 @@ GoPlaySDK = window.GoPlaySDK
 function callJS(message) {
     console.log("anhtq " + message);
     AnhTQ.postMessage("callJS called this message");
+}
+
+function markRunAsFlutter(){
+    window.GoPlaySDK.isFlutterApp = true;
 }
 
 function setCurrentUser(userData) {
