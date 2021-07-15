@@ -275,7 +275,7 @@ class GoPlaySDK {
     }
 
     emitToFlutter(signal,data) {
-        AnhTQ.postMessage(JSON.stringify({"signal": signal, "data":data}));
+        FlutterBridge.postMessage(JSON.stringify({"signal": signal, "data":data}));
     }
 
     /**
@@ -537,11 +537,6 @@ window.PHOTON_EVENT = PHOTON_EVENT;
 window.MATCH_TYPE = MATCH_TYPE;
 window.GoPlaySDK = new GoPlaySDK();
 GoPlaySDK = window.GoPlaySDK
-
-function callJS(message) {
-    console.log("anhtq " + message);
-    AnhTQ.postMessage("callJS called this message");
-}
 
 function markRunAsFlutter(){
     window.GoPlaySDK.isFlutterApp = true;
